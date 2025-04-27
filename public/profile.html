@@ -1,0 +1,19 @@
+<h2>Welcome to Profile Page</h2>
+<p id="welcomeText"></p>
+<button onclick="logout()">Logout</button>
+
+<script>
+  fetch('/check-auth')
+    .then(res => {
+      if (!res.ok) location.href = '/';
+      return res.json();
+    })
+    .then(data => {
+      document.getElementById('welcomeText').innerText = 'Hello, ' + data.username;
+    });
+
+  function logout() {
+    document.cookie = "token=; Max-Age=0; path=/";
+    location.href = '/';
+  }
+</script>
